@@ -1,0 +1,75 @@
+const getUserChoice = (userInput) => {
+  userInput = userInput.toLowerCase();
+  if (userInput === 'rock') {
+    return userInput;
+  }
+  else if (userInput === 'paper') {
+    return userInput;
+  }
+  else if (userInput === 'scissors') {
+    return userInput;
+  } 
+  else if (userInput === 'bomb') {
+    return userInput;
+  } else {
+    console.log('This is not a valid input.');
+  }
+}
+
+const getComputerChoice = () => {
+  let randomNumber = Math.floor(Math.random() * 3);
+  switch (randomNumber) {
+    case 0:
+      return 'rock';
+      break;
+    case 1:
+      return 'paper';
+      break;
+    case 2:
+      return 'scissors';
+      break;
+    default:
+      return '';
+      break;
+  }
+}
+
+const determineWinner = (userChoice, computerChoice) => {
+  if (userChoice === 'bomb') {
+    return 'you won';
+  }
+  else if (userChoice === computerChoice) {
+    return 'tie';
+  } else {
+    if (userChoice === 'rock') {
+      if (computerChoice === 'paper') {
+        return 'the computer won';
+      } else {
+        return 'you won';
+      }
+    } 
+    else if (userChoice === 'paper') {
+      if (computerChoice === 'scissors') {
+        return 'the computer won';
+      } else {
+        return 'you won';
+      }
+    }
+    else if (userChoice === 'scissors') {
+      if (computerChoice === 'rock') {
+        return 'the computer won';
+      } else {
+        return 'you won';
+      }
+    }
+  }
+}
+
+const playGame = (userInput) => {
+  let userChoice = getUserChoice(userInput);
+  let computerChoice = getComputerChoice();
+  console.log(`You chose ${userChoice} and the computer chose ${computerChoice}.`);
+  console.log(determineWinner(userChoice, computerChoice));
+}
+
+playGame('bomb')

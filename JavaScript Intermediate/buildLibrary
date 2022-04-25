@@ -1,0 +1,142 @@
+class Media {
+  constructor(title) {
+    this._title = title;
+    this._isCheckedOut = false;
+    this._rating = [];
+  }
+
+  get title() {
+    return this._title;
+  }
+
+  get isCheckedOut() {
+    return this._isCheckedOut;
+  }
+
+  get rating() {
+    return this._rating;
+  }
+
+  set isCheckedOut(status) {
+    this._isCheckedOut = status;
+  }
+
+  getAverageRating() {
+    const sum = this._rating.reduce(function(acc, value) {
+      return acc + value;    
+    });
+    return sum / this._rating.length;
+  }
+
+  toggleCheckOutStatus() {
+    if (this._isCheckedOut === true) {
+      this._isCheckedOut = false;
+    } else {
+      this._isCheckedOut = true;
+    }
+  }
+
+  addRating(rating) {
+    if (rating < 1) {
+      rating = 1;
+    }
+    else if (rating > 5) {
+      rating = 5;
+    }
+    else {
+      rating = Math.round(rating)
+    }
+    this._rating.push(rating);
+  }
+}
+
+class Book extends Media {
+  constructor(author, title, pages) {
+    super(title);
+    this._author = author;
+    this._pages = pages;
+  }
+
+  get author() {
+    return this._author;
+  }
+
+  get pages() {
+    return this._pages;
+  }
+}
+
+class Movie extends Media {
+  constructor(director, title, runTime) {
+    super(title);
+    this._director = director;
+    this._runTime = runTime;
+  }
+  
+  get director() {
+    return this._director;
+  }
+
+  get runTime() {
+    return this._runTime;
+  }  
+}
+
+class CD extends Media {
+  constructor(artist, title, songs) {
+    super(title);
+    this._artist = artist;
+    this._songs = songs;
+  }
+
+  shuffle() { 
+    const list = [];
+    const shuffledSongs = [];
+    for (let i = 0; i < this._songs.length; i++) {
+      list.push(i);
+      }
+    const shuffled = list.sort(() => Math.random() - 0.5);
+    for (let j = 0; j < shuffled.length; j++) {
+      shuffledSongs.push(this._songs[shuffled[j]])}
+    return shuffledSongs;
+  }
+
+  get artist() {
+    return this._artist;
+  }
+
+  get songs() {
+    return this._songs;
+  }
+}
+
+class Catalog extends Media {
+  constructor(title) {
+    super(title);
+  }
+}
+
+const historyOfEverything = new Book('Bill Bryson', 'A Short History of Nearly Everything', 544);
+historyOfEverything.toggleCheckOutStatus();
+console.log(historyOfEverything.isCheckedOut);
+historyOfEverything.addRating(4);
+historyOfEverything.addRating(5);
+historyOfEverything.addRating(5);
+console.log(historyOfEverything.getAverageRating());
+
+const speed = new Movie('Jan de Bont', 'Speed', 116);
+speed.toggleCheckOutStatus();
+console.log(speed.isCheckedOut);
+speed.addRating(1);
+speed.addRating(1);
+speed.addRating(5);
+console.log(speed.getAverageRating());
+
+const skz = new CD('Stray Kids', 'Christmas EveL', ['Christmas EveL', '24 to 25', 'Winter Falls', 'DOMINO (English ver.)']);
+skz.toggleCheckOutStatus();
+console.log(skz.isCheckedOut);
+skz.addRating(1);
+skz.addRating(1);
+skz.addRating(5);
+console.log(skz.getAverageRating());
+console.log(skz.shuffle());

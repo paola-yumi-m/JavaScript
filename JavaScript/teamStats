@@ -1,0 +1,74 @@
+const team = {
+  _players: [
+    {
+      firstName: 'Pablo',
+      lastName: 'Sanchez',
+      age: 11
+    },
+    {
+      firstName: 'Jehyeok',
+      lastName: 'Kim',
+      age: 30
+    },
+    {
+      firstName: 'Richard',
+      lastName: 'Soarez',
+      age: 25
+    }
+  ],
+  _games: [
+    {
+      opponent: 'Broncos',
+      teamPoints: 42,
+      opponentPoints: 27
+    },
+    {
+      opponent: 'Nexen',
+      teamPoints: 30,
+      opponentPoints: 45
+    },
+    {
+      opponent: 'Sockers',
+      teamPoints: 40,
+      opponentPoints: 28
+    }
+  ],
+  get players() {
+    return this._players;
+  },
+  get games() {
+    return this._games;
+  },
+  addPlayer(firstName, lastName, age) {
+    this._players.push({
+      firstName,
+      lastName,
+      age
+    })
+  },
+  addGame(opponent, teamPoints, opponentPoints) {
+    this._games.push({
+      opponent, 
+      teamPoints, 
+      opponentPoints
+    });
+  }
+};
+
+team.addPlayer('Steph', 'Curry', 28);
+team.addPlayer('Lisa', 'Leslie', 44);
+team.addPlayer('Bugs', 'Bunny', 76);
+
+team.addGame('Syrius', 44, 29);
+team.addGame('Black Bulls', 31, 40);
+team.addGame('Star Seekers', 20, 20);
+
+console.log(team._players);
+console.log(team._games);
+
+let totalPoints = 0;
+team._games.forEach(value => {
+  totalPoints += value.teamPoints;
+})
+
+console.log(`The team has played ${team._games.length} games and scored an average of ${totalPoints / team._games.length} points.`)

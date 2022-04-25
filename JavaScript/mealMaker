@@ -1,0 +1,80 @@
+const menu = {
+  _courses: {
+    appetizers: [],
+    mains: [],
+    desserts: [],
+  },
+  get getAppetizers() {
+    return this._courses.appetizers;
+    },
+  set setAppetizers(value) {
+    this._courses.appetizers.push(value); 
+    },
+  get getMains() {
+    return this._courses.mains;
+    },
+  set setMains(value) {
+    this._courses.mains.push(value);
+    },
+  get getDesserts() {
+    return this._courses.desserts;
+    },
+  set setDesserts(value) {
+    this._courses.desserts.push(value);
+    },
+  get courses() {
+    return {
+      appetizers: this._courses.appetizers,
+      mains: this._courses.mains,
+      desserts: this._courses.desserts
+    };
+  },
+  addDishToCourse(courseName, dishName, dishPrice) {
+    const dish = {
+      name: dishName,
+      price: dishPrice
+    }
+    if (courseName === 'appetizers') {
+      menu._courses.appetizers.push(dish);
+    }
+    else if (courseName === 'mains') {
+      menu._courses.mains.push(dish);
+    }
+    else if (courseName === 'desserts') {
+      menu._courses.desserts.push(dish);
+    }
+  },
+  getRandomDishFromCourse(courseName) {
+      const dishes = menu._courses[courseName];
+      return dishes[Math.floor(Math.random() * dishes.length)];
+  },
+  generateRandomMeal() {
+    const appetizer = menu.getRandomDishFromCourse('appetizers');
+    const main = menu.getRandomDishFromCourse('mains');
+    const dessert = menu.getRandomDishFromCourse('desserts');
+    const totalPrice = appetizer.price + main.price + dessert.price;
+    return `The course contains the appetizer ${appetizer.name}, which costs \$${appetizer.price}, the main dish ${main.name} which costs \$${main.price} and the dessert ${dessert.name}, which costs \$${dessert.price}. The total price will be ${totalPrice}.`
+  }
+};
+
+menu.addDishToCourse('appetizers', 'Onion rings', 10.00);
+menu.addDishToCourse('appetizers', 'Potato fries', 10.00);
+menu.addDishToCourse('appetizers', 'Caesar Salad', 8);
+menu.addDishToCourse('mains', 'Carbonara pasta', 20);
+menu.addDishToCourse('mains', 'Barbecue ribs', 40);
+menu.addDishToCourse('mains', 'Parmegianna', 40);
+menu.addDishToCourse('desserts', 'Ice cream', 8);
+menu.addDishToCourse('desserts', 'Petit gateau', 10);
+menu.addDishToCourse('desserts', 'Tiramisu', 10);
+
+const meal = menu.generateRandomMeal();
+
+console.log(meal);
+
+menu.setAppetizers = {name: 'Chicken wings', price: 10};
+menu.setMains = {name: 'Steak', price: 30};
+menu.setDesserts = {name: 'Apple pie', price: 10};
+console.log(menu.getAppetizers)
+console.log(menu.getMains)
+console.log(menu.getDesserts)
+console.log(menu.courses)

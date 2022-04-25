@@ -1,0 +1,136 @@
+let story = 'Last weekend, I took literally the most beautiful bike ride of my life. The route is called "The 9W to Nyack" and it actually stretches all the way from Riverside Park in Manhattan to South Nyack, New Jersey. It\'s really an adventure from beginning to end! It is a 48 mile loop and it basically took me an entire day. I stopped at Riverbank State Park to take some extremely artsy photos. It was a short stop, though, because I had a really long way left to go. After a quick photo op at the very popular Little Red Lighthouse, I began my trek across the George Washington Bridge into New Jersey.  The GW is actually very long - 4,760 feet! I was already very tired by the time I got to the other side.  An hour later, I reached Greenbrook Nature Sanctuary, an extremely beautiful park along the coast of the Hudson.  Something that was very surprising to me was that near the end of the route you actually cross back into New York! At this point, you are very close to the end.';
+
+let overusedWords = ['really', 'very', 'basically'];
+
+let unnecessaryWords = ['extremely', 'literally', 'actually' ];
+
+// spliting the paragraph into an array of words
+let storyWords = story.split(' ')
+
+const betterWords = storyWords.filter(word => {
+  if (unnecessaryWords.includes(word) === false) {
+    return word;
+  }
+})
+
+// counting how many times overused words appear
+let really = 0;
+let very = 0;
+let basically = 0;
+storyWords.forEach(word => {
+  if (word === 'really') {
+    really += 1;
+  }
+  else if (word === 'very') {
+    very += 1;
+  }
+  else if (word === 'basically') {
+    basically += 1;
+  }
+})
+
+// replacing every other overused word. the synonyms were chosen based on the initial consonant/vogal, as it would influence the article before the word on text 
+const reallySynonyms = ['surely', 'truly', 'genuinely'];
+const verySynonyms = ['tremendously', 'hugely', 'vastly'];
+const basicallySynonyms = ['primarily', 'fundamentally', 'principally'];
+let reallyCounter = 0;
+let veryCounter = 0;
+let basicallyCounter = 0;
+let randomIndex;
+const overusedWordsReplaced = betterWords.map(word => {
+  if (word === 'really') {
+    reallyCounter += 1;
+    if (reallyCounter === 1) {
+      return word;
+    } else {
+      randomIndex = Math.floor(Math.random() * 3);
+      return reallySynonyms[randomIndex];
+    } }
+  else if (word === 'very') {
+    veryCounter += 1;
+    if (veryCounter === 1) {
+      return word;
+    } else{
+      randomIndex = Math.floor(Math.random() * 3); 
+      return verySynonyms[randomIndex];
+    } }
+  else if (word === 'basically') {
+    basicallyCounter += 1;
+    if (basicallyCounter === 1) {
+      return word;
+    } else {
+      randomIndex = Math.floor(Math.random() * 3);
+      return basicallySynonyms[randomIndex];
+    } } else {
+      return word;
+    }
+  })
+
+// removing every other overused word
+reallyCounter = 0;
+veryCounter = 0;
+basicallyCounter = 0;
+const overusedWordsRemoved = betterWords.map(word => {
+  if (word === 'really') {
+    reallyCounter += 1;
+    if (reallyCounter === 1) {
+      return word;
+    } }
+  else if (word === 'very') {
+    veryCounter += 1;
+    if (veryCounter === 1) {
+      return word;
+    } }
+  else if (word === 'basically') {
+    basicallyCounter += 1;
+    if (basicallyCounter === 1) {
+      return word;
+    } }
+  else {
+    return word;
+  }
+})
+
+// Finding the word that appears the most
+let onlyWords = story.split('.');
+onlyWords = onlyWords.join(' ').split(',');
+onlyWords = onlyWords.join(' ').split('"');
+onlyWords = onlyWords.join(' ').split('!');
+onlyWords = onlyWords.join(' ').split(' ');
+
+let wordCount = 0;
+let theWord = '';
+let favoriteWordCount = 0;
+let favoriteWord = '';
+for (let i = 0; i < onlyWords.length; i++) {
+  for (let j = 0; j < onlyWords.length; j++) {
+    if (onlyWords[i] === onlyWords[j] && wordCount === 0) {
+      theWord = onlyWords[i];
+      wordCount += 1;
+    }
+    else if (onlyWords[i] === onlyWords[j] && wordCount > 0) {
+      wordCount += 1;
+    }
+    }
+    if (wordCount > favoriteWordCount && theWord !== '') {
+      favoriteWordCount = wordCount;
+      favoriteWord = theWord;
+      wordCount = 0;
+      theWord = '';
+    } 
+    else {
+      wordCount = 0;
+      theWord = '';
+    }
+  }
+
+// counting how many sentences the paragraph has
+let sentences = 0;
+betterWords.forEach(word => {
+  if (word[word.length - 1] === '.' || word[word.length - 1] === '!') {
+    sentences += 1;
+  }
+})
+
+console.log(`There are ${betterWords.length} words and ${sentences} sentences. 'really' appears ${really} time(s), 'very' appears ${very} time(s) and 'basically' appears ${basically} time(s). The most famous word is '${favoriteWord}' and it appears ${favoriteWordCount} time(s). The final paragraph with the unnecessary words removed and the overused words replaced is: `);
+console.log(overusedWordsReplaced.join(' '))

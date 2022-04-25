@@ -1,0 +1,23 @@
+// value in Kelvin
+const kelvin = 0;
+
+// celsius converted from kelvin
+const celsius = kelvin - 273;
+
+// fahrenheit converted from celsius 
+let fahrenheit = celsius * (9/5) + 32;
+
+// and rounded
+fahrenheit = Math.floor(fahrenheit);
+
+// result
+console.log(`The temperature is ${fahrenheit} degrees Fahrenheit.`);
+
+// celsius converted to newton
+let newton = celsius * (33/100);
+
+// and rounded
+newton = Math.floor(newton);
+
+// result
+console.log(`The temperature is ${newton} degrees Newton.`)
